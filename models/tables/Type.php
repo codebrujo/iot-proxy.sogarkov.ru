@@ -4,24 +4,22 @@ namespace app\models\tables;
 
 
 /**
- * This is the model class for table "proxy".
+ * This is the model class for table "device".
  *
  * @property int $id
- * @property int $valueInt
- * @property string $valueStr
- * @property float $valueFloat
+ * @property string $name
  * @property int $created_at
  * @property int $updated_at
  *
  */
-class Proxy extends ActiveRecord
+class Device extends ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'proxy';
+        return 'type';
     }
 
     /**
@@ -30,12 +28,11 @@ class Proxy extends ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
+            [['id', 'name', 'toDelete'], 'required'],
             [['id'], 'integer'],
-            [['valueInt'], 'integer'],
-            [['valueStr'], 'string', 'max' => 255],
-            [['valueFloat'], 'float'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['name'], 'string', 'max' => 255],
+            [['toDelete'], 'boolean'],
+            [['created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -46,9 +43,7 @@ class Proxy extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'valueStr' => 'String Value',
-            'valueInt' => 'Integer Value',
-            'valueFloat' => 'Float Value',
+            'name' => 'Name',
         ];
     }
 
@@ -57,6 +52,14 @@ class Proxy extends ActiveRecord
         $val = static::find()
             ->all();
 
+        return $val;
+    }
+
+    public static function getByName($name)
+    {
+        $val = static::find()
+            ->where(['name' => $name])
+            ->all();
         return $val;
     }
 
