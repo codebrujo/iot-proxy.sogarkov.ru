@@ -30,12 +30,12 @@ class Command extends ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'deviceId', 'type', 'value'], 'required'],
+            [['deviceId', 'type', 'value'], 'required'],
             [['id'], 'integer'],
             [['deviceId'], 'integer'],
             [['type'], 'integer'],
             [['value'], 'string', 'max' => 255],
-            [['created_at', 'updated_at'], 'safe'],
+            [['id', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -66,11 +66,17 @@ class Command extends ActiveRecord
         return $val;
     }
 
+    public static function getByDeviceIdAndType($deviceId, $type)
+    {
+        return static::find()
+            ->where(['deviceId' => $deviceId, 'type' => $type])
+            ->all();
+    }
+
     public static function getByPk($id)
     {
         $val = static::find()
             ->where(['id' => $id])->one();
         return $val;
     }
-
 }

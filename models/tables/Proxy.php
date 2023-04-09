@@ -34,7 +34,6 @@ class Proxy extends ActiveRecord
             [['id'], 'integer'],
             [['valueInt'], 'integer'],
             [['valueStr'], 'string', 'max' => 255],
-            [['valueFloat'], 'float'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
         ];
     }
@@ -48,7 +47,6 @@ class Proxy extends ActiveRecord
             'id' => 'ID',
             'valueStr' => 'String Value',
             'valueInt' => 'Integer Value',
-            'valueFloat' => 'Float Value',
         ];
     }
 
