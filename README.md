@@ -2,3 +2,4 @@
 
 ## copy vendor folder
 ## create config folder
+## put .htaccess to ./web
